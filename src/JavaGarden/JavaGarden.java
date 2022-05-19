@@ -22,11 +22,11 @@ public class JavaGarden {
             NevBekero nb = new NevBekero();
             nb.setLocationRelativeTo(null);
             nb.setVisible(true);
+        } else {
+            //GUI indítása
+            GardenGUI mainscreen = new GardenGUI();
+            mainscreen.setLocationRelativeTo(null);
+            mainscreen.setVisible(true);
         }
-        
-        //GUI indítása
-        //GardenGUI mainscreen = new GardenGUI();
-        //mainscreen.setVisible(true);
     }
-    
 }

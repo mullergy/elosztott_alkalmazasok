@@ -1,12 +1,12 @@
 package JavaGarden;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 public class NevBekero extends javax.swing.JFrame {
 
-    /**
-     * Creates new form NevBekero
-     */
     public NevBekero() {
         initComponents();
     }
@@ -44,6 +44,11 @@ public class NevBekero extends javax.swing.JFrame {
                 btnMENTESMouseClicked(evt);
             }
         });
+        btnMENTES.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnMENTESKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,8 +83,32 @@ public class NevBekero extends javax.swing.JFrame {
     private void btnMENTESMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMENTESMouseClicked
         if ("".equals(this.txtNEV.getText())) {
             JOptionPane.showMessageDialog(null, "Kérem adjon meg egy tetszőleges megnevezést!", "Legyen keresztszülő!",JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            //*** van valamilyen név - eltárolható
+            try {
+                File f = new File(JavaGarden.adatmappa+JavaGarden.kerteszetfile);
+                f.createNewFile();
+                try {
+                    FileWriter fw = new FileWriter(f);
+                    fw.write(this.txtNEV.getText());
+                    fw.close();
+                    this.setVisible(false);
+                    
+                    //GUI indítása
+                    GardenGUI mainscreen = new GardenGUI();
+                    mainscreen.setLocationRelativeTo(null);
+                    mainscreen.setVisible(true);
+                } catch (IOException e) {
+                    System.err.println("Nem sikerült a név file-ba írása!");
+                }
+            } catch (IOException e) {
+                System.err.println("Nem sikerült a nevet tartalmazó file létrehozása!");
+            }
         }
     }//GEN-LAST:event_btnMENTESMouseClicked
+
+    private void btnMENTESKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnMENTESKeyPressed
+    }//GEN-LAST:event_btnMENTESKeyPressed
 
     /**
      * @param args the command line arguments
