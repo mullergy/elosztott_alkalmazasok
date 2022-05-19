@@ -1,9 +1,16 @@
 package JavaGarden;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Vector;
+import javax.swing.*;
+import javax.swing.table.*;
+
 
 public class GardenGUI extends javax.swing.JFrame {
+    
+    private ArrayList<Vasarlo> vevok;
     
     public GardenGUI() {
         initComponents();
@@ -19,6 +26,10 @@ public class GardenGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         lblFocim = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        btnMINTAADATOK = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblVasarlok = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -32,13 +43,60 @@ public class GardenGUI extends javax.swing.JFrame {
         lblFocim.setText("Vásárlói kiszolgáló felület");
         lblFocim.setToolTipText("A kertészet megnevezése");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Vásárló kiválasztása:");
+
+        btnMINTAADATOK.setText("Mintaadatok");
+        btnMINTAADATOK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMINTAADATOKMouseClicked(evt);
+            }
+        });
+
+        tblVasarlok.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Azonosító", "Név", "Egyenleg", "Kedvezmény"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblVasarlok.setRowHeight(24);
+        tblVasarlok.setRowMargin(3);
+        jScrollPane2.setViewportView(tblVasarlok);
+        if (tblVasarlok.getColumnModel().getColumnCount() > 0) {
+            tblVasarlok.getColumnModel().getColumn(3).setResizable(false);
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblFocim, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFocim, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMINTAADATOK)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -46,7 +104,13 @@ public class GardenGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblFocim, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(419, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnMINTAADATOK)
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         pack();
@@ -74,6 +138,36 @@ public class GardenGUI extends javax.swing.JFrame {
          
          
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnMINTAADATOKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMINTAADATOKMouseClicked
+        //Object adatok[][] = {{1,"Első Vásárló", 10000, 0},{2, "Második Vásárló", 22000, 25},{3, "Harmadik Vásárló", 5000, 25}};
+        Vector v1 = new Vector();
+        Vector v2 = new Vector();
+        Vector v3 = new Vector();
+        DefaultTableModel dt = (DefaultTableModel) tblVasarlok.getModel();
+        
+        //*** Az előző adatok törlése ***
+        for(int i = dt.getRowCount()-1;i>=0; i--) {
+            dt.removeRow(i);
+        }
+        v1.add(1);
+        v1.add("Első Vásárló");
+        v1.add(10000);
+        v1.add(0);
+        dt.addRow(v1);
+
+        v2.add(2);
+        v2.add("Második Vásárló");
+        v2.add(22000);
+        v2.add(25);
+        dt.addRow(v2);
+
+        v3.add(3);
+        v3.add("Harmadik Vásárló");
+        v3.add(5000);
+        v3.add(25);
+        dt.addRow(v3);
+    }//GEN-LAST:event_btnMINTAADATOKMouseClicked
 
     /**
      * @param args the command line arguments
@@ -111,6 +205,10 @@ public class GardenGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMINTAADATOK;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblFocim;
+    private javax.swing.JTable tblVasarlok;
     // End of variables declaration//GEN-END:variables
 }
