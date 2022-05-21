@@ -1,18 +1,23 @@
 package JavaGarden;
 
-public class Noveny {
-    int id;
-    int kerteszet_id;
-    String megnevezes;
-    int keszlet;
-    int egysegar;
+import java.text.Collator;
 
-    public void setId(int id) {
+public class Noveny implements Comparable<Noveny>{
+    private int id;
+    private String megnevezes;
+    private int keszlet;
+    private int egysegar;
+
+    public Noveny(int id, String megnevezes, int keszlet, int egysegar) {
         this.id = id;
+        this.megnevezes = megnevezes;
+        this.keszlet = keszlet;
+        this.egysegar = egysegar;
     }
 
-    public void setKerteszet_id(int kerteszet_id) {
-        this.kerteszet_id = kerteszet_id;
+    
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setMegnevezes(String megnevezes) {
@@ -31,10 +36,6 @@ public class Noveny {
         return id;
     }
 
-    public int getKerteszet_id() {
-        return kerteszet_id;
-    }
-
     public String getMegnevezes() {
         return megnevezes;
     }
@@ -47,7 +48,17 @@ public class Noveny {
         return egysegar;
     }
 
+    @Override
+    public int compareTo(Noveny masikNoveny){
+       return this.egysegar - masikNoveny.egysegar;
+    }
+
+    @Override
+    public String toString() {
+        return "Noveny{" + "id=" + id + ", megnevezes=" + megnevezes + ", keszlet=" + keszlet + ", egysegar=" + egysegar + '}';
+    }
     
-    
-    
+    public static NovenyArComparator ArKomparator () {
+        return new NovenyArComparator();
+    }
 }

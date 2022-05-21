@@ -13,6 +13,7 @@ import javax.swing.table.*;
 public class GardenGUI extends javax.swing.JFrame {
     public ArrayList<Vasarlo> vevok = new ArrayList<Vasarlo>();
     
+    
     public GardenGUI() {
         initComponents();
     }
@@ -57,7 +58,9 @@ public class GardenGUI extends javax.swing.JFrame {
         btnVEVOMENTES = new javax.swing.JButton();
         btnVEVOMEGSEM = new javax.swing.JButton();
         panelKESZLET = new javax.swing.JPanel();
-        panelMAGAMRÓL = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        panelSEGITSEG = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -193,7 +196,7 @@ public class GardenGUI extends javax.swing.JFrame {
             panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelELADASLayout.createSequentialGroup()
                 .addComponent(lblFocim, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -410,22 +413,53 @@ public class GardenGUI extends javax.swing.JFrame {
                 .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnMINTAADATOK)
                     .addComponent(btnUJVASARLO))
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Vásárlók", panelVASARLOK);
 
         panelKESZLET.setEnabled(false);
 
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Azonosító", "Megnevezés", "Készlet", "Egységár"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(jTable3);
+
         javax.swing.GroupLayout panelKESZLETLayout = new javax.swing.GroupLayout(panelKESZLET);
         panelKESZLET.setLayout(panelKESZLETLayout);
         panelKESZLETLayout.setHorizontalGroup(
             panelKESZLETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 878, Short.MAX_VALUE)
+            .addGroup(panelKESZLETLayout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(312, Short.MAX_VALUE))
         );
         panelKESZLETLayout.setVerticalGroup(
             panelKESZLETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGroup(panelKESZLETLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Készlet", panelKESZLET);
@@ -450,48 +484,48 @@ public class GardenGUI extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel17.setText("+36 (70) 310-4015");
 
-        javax.swing.GroupLayout panelMAGAMRÓLLayout = new javax.swing.GroupLayout(panelMAGAMRÓL);
-        panelMAGAMRÓL.setLayout(panelMAGAMRÓLLayout);
-        panelMAGAMRÓLLayout.setHorizontalGroup(
-            panelMAGAMRÓLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMAGAMRÓLLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelSEGITSEGLayout = new javax.swing.GroupLayout(panelSEGITSEG);
+        panelSEGITSEG.setLayout(panelSEGITSEGLayout);
+        panelSEGITSEGLayout.setHorizontalGroup(
+            panelSEGITSEGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSEGITSEGLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelMAGAMRÓLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(panelSEGITSEGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(28, 28, 28)
-                .addGroup(panelMAGAMRÓLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelSEGITSEGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(604, Short.MAX_VALUE))
         );
-        panelMAGAMRÓLLayout.setVerticalGroup(
-            panelMAGAMRÓLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMAGAMRÓLLayout.createSequentialGroup()
+        panelSEGITSEGLayout.setVerticalGroup(
+            panelSEGITSEGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSEGITSEGLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(panelMAGAMRÓLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelSEGITSEGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelMAGAMRÓLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelSEGITSEGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelMAGAMRÓLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelSEGITSEGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelMAGAMRÓLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelSEGITSEGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jLabel17))
-                .addContainerGap(362, Short.MAX_VALUE))
+                .addContainerGap(316, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Technikai segítség", panelMAGAMRÓL);
+        jTabbedPane1.addTab("Technikai segítség", panelSEGITSEG);
 
         lblKERTESZET.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblKERTESZET.setForeground(new java.awt.Color(51, 153, 0));
@@ -505,18 +539,17 @@ public class GardenGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
-                    .addComponent(lblKERTESZET, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblKERTESZET, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(lblKERTESZET, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -681,14 +714,16 @@ public class GardenGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblFocim;
     private javax.swing.JLabel lblKERTESZET;
     private javax.swing.JPanel panelELADAS;
     private javax.swing.JPanel panelKESZLET;
-    private javax.swing.JPanel panelMAGAMRÓL;
+    private javax.swing.JPanel panelSEGITSEG;
     private javax.swing.JPanel panelVASARLOK;
     private javax.swing.JTable tblVasarlok;
     private javax.swing.JTable tblVasarlok1;
@@ -727,7 +762,7 @@ public class GardenGUI extends javax.swing.JFrame {
         this.btnUJVASARLO.setEnabled(eng);
         this.panelELADAS.setEnabled(eng);
         this.panelKESZLET.setEnabled(eng);
-        this.panelMAGAMRÓL.setEnabled(eng);
+        this.panelSEGITSEG.setEnabled(eng);
 
         this.txtVEVONEV.setEnabled(!eng);
         this.txtVEVOEGYENLEG.setEnabled(!eng);
