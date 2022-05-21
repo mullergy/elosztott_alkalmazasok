@@ -6,6 +6,14 @@ public class Vasarlo {
     int egyenleg;
     int kedvezmeny;
 
+    public Vasarlo(int id, String nev, int egyenleg, int kedvezmeny) {
+        this.id = id;
+        this.nev = nev;
+        this.egyenleg = egyenleg;
+        this.kedvezmeny = kedvezmeny;
+    }
+
+    
     public void setId(int id) {
         this.id = id;
     }
