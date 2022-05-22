@@ -75,22 +75,20 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblFocim" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabel8" alignment="0" min="-2" pref="52" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" alignment="0" pref="347" max="32767" attributes="0"/>
-                                  <Component id="jLabel9" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="99" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel10" min="-2" pref="48" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="364" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Component id="jLabel8" alignment="0" min="-2" pref="52" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane3" alignment="0" min="-2" pref="347" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="0" min="-2" pref="401" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="45" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel10" min="-2" pref="48" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="364" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jScrollPane4" alignment="1" min="-2" pref="412" max="-2" attributes="0"/>
+                                  <Component id="jButton1" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -145,14 +143,14 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable1">
+                <Component class="javax.swing.JTable" name="tblKeszlet_ea">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="0">
-                        <Column editable="false" title="Azonos&#xed;t&#xf3;" type="java.lang.Integer"/>
                         <Column editable="false" title="Megnevez&#xe9;s" type="java.lang.String"/>
-                        <Column editable="false" title="K&#xe9;szlet" type="java.lang.Long"/>
-                        <Column editable="false" title="Egys&#xe9;g&#xe1;r" type="java.lang.Long"/>
+                        <Column editable="false" title="K&#xe9;szlet" type="java.lang.Integer"/>
+                        <Column editable="false" title="Egys&#xe9;g&#xe1;r" type="java.lang.Integer"/>
+                        <Column editable="false" title="&#xc9;rt&#xe9;k" type="java.lang.Integer"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -167,7 +165,7 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -201,7 +199,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tblVasarlok1">
+                <Component class="javax.swing.JTable" name="tblVasarlok_ea">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -210,7 +208,7 @@
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="0">
-                        <Column editable="false" title="Azonos&#xed;t&#xf3;" type="java.lang.Integer"/>
+                        <Column editable="false" title="Vev&#x151;k&#xf3;d" type="java.lang.Integer"/>
                         <Column editable="false" title="N&#xe9;v" type="java.lang.String"/>
                         <Column editable="false" title="Egyenleg" type="java.lang.Integer"/>
                         <Column editable="false" title="Kedvezm&#xe9;ny" type="java.lang.Integer"/>
@@ -314,38 +312,41 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="btnMINTAADATOK" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
-                                      <Component id="btnUJVASARLO" min="-2" pref="97" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel1" min="-2" pref="141" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="206" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jScrollPane2" min="-2" pref="347" max="-2" attributes="0"/>
-                                      <Component id="jLabel1" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="btnMINTAADATOK" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="269" max="-2" attributes="0"/>
+                                              <Component id="btnUJVASARLO" min="-2" pref="97" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jScrollPane2" min="-2" pref="463" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jLabel14" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jLabel11" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jLabel12" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jLabel13" alignment="1" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel13" min="-2" pref="61" max="-2" attributes="0"/>
+                                  <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel12" alignment="1" min="-2" pref="61" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" min="-2" pref="61" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtVEVONEV" min="-2" pref="233" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="btnVEVOMENTES" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="btnVEVOMEGSEM" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="cmbKEDVEZMENY" alignment="0" pref="56" max="32767" attributes="0"/>
-                                      <Component id="txtVEVOEGYENLEG" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="txtVEVOID" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
+                                  <Component id="txtVEVONEV" min="-2" pref="233" max="-2" attributes="0"/>
+                                  <Component id="txtVEVOID" min="-2" pref="57" max="-2" attributes="0"/>
+                                  <Component id="txtVEVOEGYENLEG" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                                  <Component id="cmbKEDVEZMENY" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="199" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="89" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel15" max="32767" attributes="0"/>
@@ -439,7 +440,7 @@
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="0">
-                        <Column editable="false" title="Azonos&#xed;t&#xf3;" type="java.lang.Integer"/>
+                        <Column editable="false" title="Vev&#x151;k&#xf3;d" type="java.lang.Integer"/>
                         <Column editable="false" title="N&#xe9;v" type="java.lang.String"/>
                         <Column editable="false" title="Egyenleg" type="java.lang.Integer"/>
                         <Column editable="false" title="Kedvezm&#xe9;ny" type="java.lang.Integer"/>
@@ -620,18 +621,37 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
-                      <Component id="jScrollPane5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="312" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="btnKESZLETMINTA" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="248" max="-2" attributes="0"/>
+                              <Component id="jLabel18" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jScrollPane5" min="-2" pref="557" max="-2" attributes="0"/>
+                                  <Component id="jTextField1" min="-2" pref="117" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="311" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jScrollPane5" min="-2" pref="302" max="-2" attributes="0"/>
-                      <EmptySpace pref="101" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane5" min="-2" pref="371" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextField1" alignment="3" pref="30" max="32767" attributes="0"/>
+                          <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnKESZLETMINTA" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -644,14 +664,14 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable3">
+                <Component class="javax.swing.JTable" name="tblKESZLET">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="0">
-                        <Column editable="true" title="Azonos&#xed;t&#xf3;" type="java.lang.Integer"/>
                         <Column editable="false" title="Megnevez&#xe9;s" type="java.lang.String"/>
-                        <Column editable="true" title="K&#xe9;szlet" type="java.lang.Integer"/>
-                        <Column editable="true" title="Egys&#xe9;g&#xe1;r" type="java.lang.Integer"/>
+                        <Column editable="false" title="K&#xe9;szlet" type="java.lang.Integer"/>
+                        <Column editable="false" title="Egys&#xe9;g&#xe1;r" type="java.lang.Integer"/>
+                        <Column editable="false" title="&#xc9;rt&#xe9;k" type="java.lang.Integer"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -685,6 +705,32 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JTextField" name="jTextField1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="1"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel18">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Teljes &#xe9;rt&#xe9;k:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnKESZLETMINTA">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="10" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="MINTAADATOK"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnKESZLETMINTAActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelSEGITSEG">

@@ -2,8 +2,8 @@ package JavaGarden;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -12,7 +12,7 @@ import javax.swing.table.*;
 
 public class GardenGUI extends javax.swing.JFrame {
     public ArrayList<Vasarlo> vevok = new ArrayList<Vasarlo>();
-    
+    public ArrayList<Noveny> novenyek = new ArrayList<Noveny>();
     
     public GardenGUI() {
         initComponents();
@@ -31,10 +31,10 @@ public class GardenGUI extends javax.swing.JFrame {
         panelELADAS = new javax.swing.JPanel();
         lblFocim = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblKeszlet_ea = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblVasarlok1 = new javax.swing.JTable();
+        tblVasarlok_ea = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -59,7 +59,10 @@ public class GardenGUI extends javax.swing.JFrame {
         btnVEVOMEGSEM = new javax.swing.JButton();
         panelKESZLET = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblKESZLET = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        btnKESZLETMINTA = new javax.swing.JButton();
         panelSEGITSEG = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -86,16 +89,16 @@ public class GardenGUI extends javax.swing.JFrame {
         lblFocim.setText("Vásárlói kiszolgáló felület");
         lblFocim.setToolTipText("A kertészet megnevezése");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblKeszlet_ea.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Azonosító", "Megnevezés", "Készlet", "Egységár"
+                "Megnevezés", "Készlet", "Egységár", "Érték"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -109,21 +112,18 @@ public class GardenGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-        }
+        jScrollPane1.setViewportView(tblKeszlet_ea);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Készlet:");
 
-        tblVasarlok1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tblVasarlok1.setModel(new javax.swing.table.DefaultTableModel(
+        tblVasarlok_ea.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tblVasarlok_ea.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Azonosító", "Név", "Egyenleg", "Kedvezmény"
+                "Vevőkód", "Név", "Egyenleg", "Kedvezmény"
             }
         ) {
             Class[] types = new Class [] {
@@ -141,10 +141,10 @@ public class GardenGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblVasarlok1.setRowHeight(24);
-        tblVasarlok1.setRowMargin(3);
-        tblVasarlok1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane3.setViewportView(tblVasarlok1);
+        tblVasarlok_ea.setRowHeight(24);
+        tblVasarlok_ea.setRowMargin(3);
+        tblVasarlok_ea.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(tblVasarlok_ea);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Vásárló kiválasztása:");
@@ -177,19 +177,18 @@ public class GardenGUI extends javax.swing.JFrame {
                 .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblFocim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelELADASLayout.createSequentialGroup()
-                        .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                         .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jButton1)
-                                .addGroup(panelELADASLayout.createSequentialGroup()
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(364, 364, 364)))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                        .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelELADASLayout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(364, 364, 364))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         panelELADASLayout.setVerticalGroup(
@@ -239,7 +238,7 @@ public class GardenGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Azonosító", "Név", "Egyenleg", "Kedvezmény"
+                "Vevőkód", "Név", "Egyenleg", "Kedvezmény"
             }
         ) {
             Class[] types = new Class [] {
@@ -351,30 +350,32 @@ public class GardenGUI extends javax.swing.JFrame {
                     .addGroup(panelVASARLOKLayout.createSequentialGroup()
                         .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelVASARLOKLayout.createSequentialGroup()
-                                .addComponent(btnMINTAADATOK)
-                                .addGap(153, 153, 153)
-                                .addComponent(btnUJVASARLO, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(206, 206, 206))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelVASARLOKLayout.createSequentialGroup()
+                                .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(panelVASARLOKLayout.createSequentialGroup()
+                                        .addComponent(btnMINTAADATOK)
+                                        .addGap(269, 269, 269)
+                                        .addComponent(btnUJVASARLO, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtVEVONEV, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelVASARLOKLayout.createSequentialGroup()
                                 .addComponent(btnVEVOMENTES)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnVEVOMEGSEM))
-                            .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(cmbKEDVEZMENY, javax.swing.GroupLayout.Alignment.LEADING, 0, 56, Short.MAX_VALUE)
-                                .addComponent(txtVEVOEGYENLEG, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(txtVEVOID, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 199, Short.MAX_VALUE))
+                            .addComponent(txtVEVONEV, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtVEVOID, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtVEVOEGYENLEG, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbKEDVEZMENY, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 89, Short.MAX_VALUE))
                     .addGroup(panelVASARLOKLayout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -420,19 +421,19 @@ public class GardenGUI extends javax.swing.JFrame {
 
         panelKESZLET.setEnabled(false);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblKESZLET.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Azonosító", "Megnevezés", "Készlet", "Egységár"
+                "Megnevezés", "Készlet", "Egységár", "Érték"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, true, true
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -443,23 +444,50 @@ public class GardenGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(jTable3);
+        jScrollPane5.setViewportView(tblKESZLET);
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel18.setText("Teljes érték:");
+
+        btnKESZLETMINTA.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnKESZLETMINTA.setText("MINTAADATOK");
+        btnKESZLETMINTA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKESZLETMINTAActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelKESZLETLayout = new javax.swing.GroupLayout(panelKESZLET);
         panelKESZLET.setLayout(panelKESZLETLayout);
         panelKESZLETLayout.setHorizontalGroup(
             panelKESZLETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelKESZLETLayout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(panelKESZLETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelKESZLETLayout.createSequentialGroup()
+                        .addComponent(btnKESZLETMINTA)
+                        .addGap(248, 248, 248)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelKESZLETLayout.createSequentialGroup()
+                        .addGroup(panelKESZLETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(311, Short.MAX_VALUE))))
         );
         panelKESZLETLayout.setVerticalGroup(
             panelKESZLETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelKESZLETLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelKESZLETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jLabel18)
+                    .addComponent(btnKESZLETMINTA))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Készlet", panelKESZLET);
@@ -560,13 +588,9 @@ public class GardenGUI extends javax.swing.JFrame {
             File f = new File(JavaGarden.adatmappa + JavaGarden.kerteszetfile);
             if (f.exists() && !f.isDirectory()) {
                 Scanner olvaso = new Scanner(f);
-                //while (olvaso.hasNextLine()) {
-                    String kerteszetneve = olvaso.nextLine();
-                    //this.lblKerteszetID.setText("(" + adatok[0] + ")");
-                    //this.lblMegnevezes.setText(adatok[1]);
-                    this.setTitle(kerteszetneve);
-                    this.lblKERTESZET.setText("Kertészet megnevezése: " + kerteszetneve);
-                //}
+                String kerteszetneve = olvaso.nextLine();
+                this.setTitle(kerteszetneve + " Kertészet");
+                this.lblKERTESZET.setText(kerteszetneve + " Kertészet");
                 olvaso.close();
             } else {
                 this.lblFocim.setText("Nem találtam a kertészet nevét!");
@@ -633,7 +657,9 @@ public class GardenGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVEVOMENTESActionPerformed
 
     private void btnVEVOMEGSEMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEVOMEGSEMActionPerformed
-        int valasz = JOptionPane.showConfirmDialog(null, "Valóban kilép az adatok mentése nélkül?", "FIGYELEM",JOptionPane.YES_NO_OPTION);
+        int valasz = JOptionPane.showConfirmDialog(null, 
+                "Valóban kilép az adatok mentése nélkül?", "FIGYELEM",
+                JOptionPane.YES_NO_OPTION);
         if (valasz == JOptionPane.YES_OPTION) {
             this.txtVEVOID.setText(null);
             this.txtVEVONEV.setText(null);
@@ -650,6 +676,35 @@ public class GardenGUI extends javax.swing.JFrame {
         this.txtVEVOEGYENLEG.setText(Integer.toString(vevok.get(index).egyenleg));
         this.cmbKEDVEZMENY.setSelectedItem(Integer.toString(vevok.get(index).kedvezmeny));
     }//GEN-LAST:event_tblVasarlokMouseClicked
+
+    private void btnKESZLETMINTAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKESZLETMINTAActionPerformed
+        int valasz = JOptionPane.YES_OPTION;
+        if (novenyek.size() > 0) {
+            valasz = JOptionPane.showConfirmDialog(null, 
+                    "A mintaadatok törlik az eddigi adatokat. Folytatja?", "MEGERŐSÍTÉS", 
+                    JOptionPane.YES_NO_OPTION);
+        }
+        if (valasz == JOptionPane.YES_OPTION) {
+            //*** KÉSZLET ADATOK törlése ***
+            novenyek.removeAll(novenyek);
+            
+            //*** MINTAADATOK ***
+            novenyek.add(new Noveny(1,"Muskátli",12,990));
+            novenyek.add(new Noveny(2,"Rózsa",32,1090));
+            novenyek.add(new Noveny(3,"Tulipán",154,1990));
+            novenyek.add(new Noveny(4,"Ibolya",55,490));
+            novenyek.add(new Noveny(5,"Krizantém",48,890));
+            novenyek.add(new Noveny(7,"Magnólia",4,3990));
+            novenyek.add(new Noveny(8,"Magyar kajszibarack",8,3990));
+            novenyek.add(new Noveny(9,"Alexander körte",6,3490));
+            novenyek.add(new Noveny(10,"Hóvirág",78,490));
+
+            Collections.sort(novenyek, Noveny.ArKomparator());
+
+            //*** Készletadatok frissítése ***
+            KeszletKiir();
+        }
+    }//GEN-LAST:event_btnKESZLETMINTAActionPerformed
 
     /**
      * @param args the command line arguments
@@ -687,6 +742,7 @@ public class GardenGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnKESZLETMINTA;
     private javax.swing.JButton btnMINTAADATOK;
     private javax.swing.JButton btnUJVASARLO;
     private javax.swing.JButton btnVEVOMEGSEM;
@@ -702,6 +758,7 @@ public class GardenGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -716,17 +773,18 @@ public class GardenGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblFocim;
     private javax.swing.JLabel lblKERTESZET;
     private javax.swing.JPanel panelELADAS;
     private javax.swing.JPanel panelKESZLET;
     private javax.swing.JPanel panelSEGITSEG;
     private javax.swing.JPanel panelVASARLOK;
+    private javax.swing.JTable tblKESZLET;
+    private javax.swing.JTable tblKeszlet_ea;
     private javax.swing.JTable tblVasarlok;
-    private javax.swing.JTable tblVasarlok1;
+    private javax.swing.JTable tblVasarlok_ea;
     private javax.swing.JTextField txtVEVOEGYENLEG;
     private javax.swing.JTextField txtVEVOID;
     private javax.swing.JTextField txtVEVONEV;
@@ -735,7 +793,7 @@ public class GardenGUI extends javax.swing.JFrame {
     public void VevoAdatKiir () {
         //*** Vevők adatainak frissítése ***
         DefaultTableModel dt1 = (DefaultTableModel) tblVasarlok.getModel();
-        DefaultTableModel dt2 = (DefaultTableModel) tblVasarlok1.getModel();
+        DefaultTableModel dt2 = (DefaultTableModel) tblVasarlok_ea.getModel();
 
         //*** Az előző adatok törlése MINDKÉT vevőlistáról***
         for(int i = dt1.getRowCount()-1;i>=0; i--) {
@@ -744,6 +802,11 @@ public class GardenGUI extends javax.swing.JFrame {
         for(int i = dt2.getRowCount()-1;i>=0; i--) {
             dt2.removeRow(i);
         }   
+        tblVasarlok.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tblVasarlok.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tblVasarlok.getColumnModel().getColumn(1).setPreferredWidth(220);
+        tblVasarlok.getColumnModel().getColumn(2).setPreferredWidth(80);
+        tblVasarlok.getColumnModel().getColumn(3).setPreferredWidth(80);
         
         for (int i = 0; i < vevok.size(); i++) {
             Object[] sor = new Object[4];
@@ -769,6 +832,35 @@ public class GardenGUI extends javax.swing.JFrame {
         this.cmbKEDVEZMENY.setEnabled(!eng);
         this.btnVEVOMENTES.setEnabled(!eng);
         this.btnVEVOMEGSEM.setEnabled(!eng);
+    }
+    
+    public void KeszletKiir() {
+        //*** Készletadatok frissítése ***
+        DefaultTableModel dt1 = (DefaultTableModel) tblKESZLET.getModel();
+        DefaultTableModel dt2 = (DefaultTableModel) tblKeszlet_ea.getModel();
+
+        //*** Az előző adatok törlése MINDKÉT készletlistáról ***
+        for(int i = dt1.getRowCount()-1;i>=0; i--) {
+            dt1.removeRow(i);
+        }   
+        for(int i = dt2.getRowCount()-1;i>=0; i--) {
+            dt2.removeRow(i);
+        }   
+        /*tblVasarlok.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tblVasarlok.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tblVasarlok.getColumnModel().getColumn(1).setPreferredWidth(220);
+        tblVasarlok.getColumnModel().getColumn(2).setPreferredWidth(80);
+        tblVasarlok.getColumnModel().getColumn(3).setPreferredWidth(80);*/
+        
+        for (int i = 0; i < novenyek.size(); i++) {
+            Object[] sor = new Object[4];
+            sor[0] = novenyek.get(i).getMegnevezes();
+            sor[1] = novenyek.get(i).getKeszlet();
+            sor[2] = novenyek.get(i).getEgysegar();
+            sor[3] = novenyek.get(i).getKeszlet() * novenyek.get(i).getEgysegar();
+            dt1.addRow(sor);
+            dt2.addRow(sor);
+        }
     }
 }
 
