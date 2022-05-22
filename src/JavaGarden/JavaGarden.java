@@ -24,6 +24,7 @@ public class JavaGarden {
             NevBekero nb = new NevBekero();
             nb.setLocationRelativeTo(null);
             nb.setVisible(true);
+            
         } else {
             //GUI indítása
             GardenGUI mainscreen = new GardenGUI();
