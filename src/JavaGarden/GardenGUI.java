@@ -61,6 +61,9 @@ public class GardenGUI extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         btnVEVOMENTES = new javax.swing.JButton();
         btnVEVOMEGSEM = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        txtFizetes = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         panelKESZLET = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblKESZLET = new javax.swing.JTable();
@@ -361,6 +364,20 @@ public class GardenGUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel22.setText("Fizetés:");
+        jLabel22.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        txtFizetes.setToolTipText("A fizetés összege");
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jButton2.setText("FIZETÉS");
+        jButton2.setToolTipText("A beállított fizeési összeg érvényesítése");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelVASARLOKLayout = new javax.swing.GroupLayout(panelVASARLOK);
         panelVASARLOK.setLayout(panelVASARLOKLayout);
         panelVASARLOKLayout.setHorizontalGroup(
@@ -385,17 +402,22 @@ public class GardenGUI extends javax.swing.JFrame {
                                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel14)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelVASARLOKLayout.createSequentialGroup()
-                                        .addComponent(btnVEVOMENTES)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnVEVOMEGSEM))
                                     .addComponent(txtVEVONEV, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtVEVOID, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtVEVOEGYENLEG, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbKEDVEZMENY, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cmbKEDVEZMENY, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panelVASARLOKLayout.createSequentialGroup()
+                                        .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtFizetes, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnVEVOMENTES, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnVEVOMEGSEM)
+                                            .addComponent(jButton2)))))
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 89, Short.MAX_VALUE))))
         );
@@ -427,7 +449,12 @@ public class GardenGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnVEVOMENTES)
-                            .addComponent(btnVEVOMEGSEM)))
+                            .addComponent(btnVEVOMEGSEM))
+                        .addGap(21, 21, 21)
+                        .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFizetes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -814,6 +841,31 @@ public class GardenGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnKeszletMentesActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (!this.txtVEVOID.getText().isEmpty()) {
+            if (this.txtFizetes.getText().isEmpty()) {
+                //*** Nem adott meg összeget ***
+                JOptionPane.showMessageDialog(null,"Adja meg a fizetés összegét!", "ADATHIBA", JOptionPane.OK_OPTION);
+            } else {
+
+                try {
+                    int osszeg = Integer.valueOf(this.txtFizetes.getText());
+                    if (osszeg > 0) {
+                        int id = Integer.parseInt(this.txtVEVOID.getText());
+                        vevok.get(id-1).setEgyenleg(vevok.get(id-1).getEgyenleg() + osszeg);
+                        VevoAdatKiir();
+                    }
+                } catch (NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(null, "Nem megfelelő az összeg!", "ADATHIBA", JOptionPane.OK_OPTION);
+                }
+                this.txtFizetes.setText(null);
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Jelölje ki a vásárlót!", "KIJELÖLÉS", JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -858,6 +910,7 @@ public class GardenGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnVEVOMENTES;
     private javax.swing.JComboBox<String> cmbKEDVEZMENY;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -872,6 +925,7 @@ public class GardenGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -896,6 +950,7 @@ public class GardenGUI extends javax.swing.JFrame {
     private javax.swing.JTable tblKeszlet_ea;
     private javax.swing.JTable tblVasarlok;
     private javax.swing.JTable tblVasarlok_ea;
+    private javax.swing.JTextField txtFizetes;
     private javax.swing.JTextField txtTeljesErtek;
     private javax.swing.JTextField txtVEVOEGYENLEG;
     private javax.swing.JTextField txtVEVOID;
