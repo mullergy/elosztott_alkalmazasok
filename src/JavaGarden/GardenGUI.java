@@ -19,6 +19,8 @@ public class GardenGUI extends javax.swing.JFrame {
     public ArrayList<Kosar> kosar = new ArrayList<Kosar>();
     public DecimalFormat forint = new DecimalFormat("###,### Ft");
     public DecimalFormat darab = new DecimalFormat("###,### db");
+    
+    public int kedvezmeny;
     public int kosarErtek;
     
     public GardenGUI() {
@@ -53,6 +55,7 @@ public class GardenGUI extends javax.swing.JFrame {
         txtFizetendo = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         btnTorol = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         panelVASARLOK = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnMINTAADATOK = new javax.swing.JButton();
@@ -195,14 +198,14 @@ public class GardenGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tétel megnevezése", "Darabszám", "Egységár", "Érték"
+                "Tétel megnevezése", "Darabszám", "Egységár", "Eladásiár", "Érték"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true
+                false, false, true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -235,7 +238,7 @@ public class GardenGUI extends javax.swing.JFrame {
         });
 
         btnVevoKivalasztasa.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        btnVevoKivalasztasa.setText("VEVŐ KIVÁLASZTÁSA");
+        btnVevoKivalasztasa.setText("VÁSÁRLÓ KIVÁLASZTÁSA");
         btnVevoKivalasztasa.setEnabled(false);
         btnVevoKivalasztasa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,6 +274,8 @@ public class GardenGUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("Darabszám:");
+
         javax.swing.GroupLayout panelELADASLayout = new javax.swing.GroupLayout(panelELADAS);
         panelELADAS.setLayout(panelELADASLayout);
         panelELADASLayout.setHorizontalGroup(
@@ -281,31 +286,34 @@ public class GardenGUI extends javax.swing.JFrame {
                     .addComponent(lblFocim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelELADASLayout.createSequentialGroup()
                         .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelELADASLayout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(panelELADASLayout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnVevoKivalasztasa, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelELADASLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jspinDarab, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnKosarba, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                        .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFizetes, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelELADASLayout.createSequentialGroup()
+                                .addComponent(btnKosarba, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelELADASLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnVevoKivalasztasa))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelELADASLayout.createSequentialGroup()
+                                .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnFizetes)
+                            .addGroup(panelELADASLayout.createSequentialGroup()
                                 .addComponent(btnTorol)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(63, 63, 63)
                                 .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtFizetendo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblKosar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblKosar, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         panelELADASLayout.setVerticalGroup(
@@ -321,11 +329,9 @@ public class GardenGUI extends javax.swing.JFrame {
                     .addGroup(panelELADASLayout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelELADASLayout.createSequentialGroup()
-                                .addComponent(btnVevoKivalasztasa)
-                                .addGap(15, 15, 15))
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(btnVevoKivalasztasa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelELADASLayout.createSequentialGroup()
@@ -340,7 +346,8 @@ public class GardenGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnKosarba)
-                    .addComponent(jspinDarab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jspinDarab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
                 .addGap(55, 55, 55))
         );
 
@@ -539,7 +546,7 @@ public class GardenGUI extends javax.swing.JFrame {
                                             .addComponent(btnVEVOMEGSEM)
                                             .addComponent(jButton2)))))
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 89, Short.MAX_VALUE))))
+                        .addGap(0, 127, Short.MAX_VALUE))))
         );
         panelVASARLOKLayout.setVerticalGroup(
             panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -671,7 +678,7 @@ public class GardenGUI extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtTeljesErtek, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 301, Short.MAX_VALUE)))
+                        .addGap(0, 339, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelKESZLETLayout.setVerticalGroup(
@@ -743,8 +750,8 @@ public class GardenGUI extends javax.swing.JFrame {
                                 .addGroup(panelSEGITSEGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel7)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE))
-                                .addContainerGap(341, Short.MAX_VALUE))
+                                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE))
+                                .addContainerGap(360, Short.MAX_VALUE))
                             .addGroup(panelSEGITSEGLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
@@ -999,6 +1006,7 @@ public class GardenGUI extends javax.swing.JFrame {
     private void btnVevoKivalasztasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVevoKivalasztasaActionPerformed
         int sorindex = this.tblVasarlok_ea.getSelectedRow();
         
+        kedvezmeny = vevok.get(sorindex).getKedvezmeny();
         this.lblKosar.setText(vevok.get(sorindex).getNev() + " kosara:");
         this.tblVasarlok_ea.setEnabled(false);
         this.tblKeszlet_ea.setEnabled(true);
@@ -1015,8 +1023,14 @@ public class GardenGUI extends javax.swing.JFrame {
             String megnevezes = novenyek.get(sorindex).getMegnevezes();
             int darab = Integer.parseInt(jspinDarab.getValue().toString());
             int egysegar = novenyek.get(sorindex).getEgysegar();
-            int ertek = darab * egysegar;
-            kosar.add(new Kosar(id, megnevezes, darab, egysegar, ertek));
+            int eladasiar;
+            if (kedvezmeny == 0) {
+                eladasiar = egysegar;
+            } else {
+                eladasiar = egysegar - (egysegar * kedvezmeny / 100);
+            }
+            int ertek = darab * eladasiar;
+            kosar.add(new Kosar(id, megnevezes, darab, egysegar, eladasiar, ertek));
             KosarKiir();
             
             //*** A készlet csökkentése (id)***
@@ -1058,7 +1072,7 @@ public class GardenGUI extends javax.swing.JFrame {
             //*** Törölni kell a kosár tartalmát ***
             int sorok = kosar.size();
             for (int i = 0; i < sorok; i++) {
-                kosar.remove(i);
+                kosar.remove(0);
             }
             KosarKiir();
             
@@ -1138,6 +1152,7 @@ public class GardenGUI extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbKEDVEZMENY;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1209,7 +1224,7 @@ public class GardenGUI extends javax.swing.JFrame {
             sor[0] = vevok.get(i).id;
             sor[1] = vevok.get(i).nev;
             sor[2] = forint.format(vevok.get(i).egyenleg);
-            sor[3] = vevok.get(i).kedvezmeny;
+            sor[3] = vevok.get(i).kedvezmeny + "%";
             dt1.addRow(sor);
             dt2.addRow(sor);
         }
@@ -1307,11 +1322,12 @@ public class GardenGUI extends javax.swing.JFrame {
         
         if (kosar.size() > 0) {
             for (int i=0; i<kosar.size();i++) {
-                Object[] sor = new Object[4];
+                Object[] sor = new Object[5];
                 sor[0] = kosar.get(i).getTetelmegnevezes();
                 sor[1] = darab.format(kosar.get(i).getDarabszam());
                 sor[2] = forint.format(kosar.get(i).getEgysegar());
-                sor[3] = forint.format(kosar.get(i).getErtek());
+                sor[3] = forint.format(kosar.get(i).getEladasiar());
+                sor[4] = forint.format(kosar.get(i).getErtek());
                 kt.addRow(sor);
 
                 kosarErtek += kosar.get(i).getErtek();
