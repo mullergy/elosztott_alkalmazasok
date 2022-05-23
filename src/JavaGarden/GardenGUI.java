@@ -13,10 +13,13 @@ import javax.swing.table.*;
 
 
 public class GardenGUI extends javax.swing.JFrame {
+    public Kerteszet kerteszet;
     public ArrayList<Vasarlo> vevok = new ArrayList<Vasarlo>();
     public ArrayList<Noveny> novenyek = new ArrayList<Noveny>();
+    public ArrayList<Kosar> kosar = new ArrayList<Kosar>();
     public DecimalFormat forint = new DecimalFormat("###,### Ft");
     public DecimalFormat darab = new DecimalFormat("###,### db");
+    public int kosarErtek;
     
     public GardenGUI() {
         initComponents();
@@ -41,9 +44,15 @@ public class GardenGUI extends javax.swing.JFrame {
         tblVasarlok_ea = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jLabel10 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        tblKosar = new javax.swing.JTable();
+        lblKosar = new javax.swing.JLabel();
+        btnFizetes = new javax.swing.JButton();
+        btnVevoKivalasztasa = new javax.swing.JButton();
+        btnKosarba = new javax.swing.JButton();
+        jspinDarab = new javax.swing.JSpinner();
+        txtFizetendo = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        btnTorol = new javax.swing.JButton();
         panelVASARLOK = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnMINTAADATOK = new javax.swing.JButton();
@@ -123,10 +132,19 @@ public class GardenGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblKeszlet_ea.setEnabled(false);
         tblKeszlet_ea.setRowHeight(24);
         tblKeszlet_ea.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblKeszlet_ea.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblKeszlet_ea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblKeszlet_eaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblKeszlet_ea);
+        if (tblKeszlet_ea.getColumnModel().getColumnCount() > 0) {
+            tblKeszlet_ea.getColumnModel().getColumn(0).setPreferredWidth(200);
+        }
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Készlet:");
@@ -158,29 +176,100 @@ public class GardenGUI extends javax.swing.JFrame {
         tblVasarlok_ea.setRowHeight(24);
         tblVasarlok_ea.setRowMargin(3);
         tblVasarlok_ea.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblVasarlok_ea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVasarlok_eaMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblVasarlok_ea);
+        if (tblVasarlok_ea.getColumnModel().getColumnCount() > 0) {
+            tblVasarlok_ea.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblVasarlok_ea.getColumnModel().getColumn(1).setPreferredWidth(200);
+        }
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Vásárló kiválasztása:");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblKosar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tétel megnevezése", "Darabszám", "Egységár", "Érték"
             }
-        ));
-        jScrollPane4.setViewportView(jTable2);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true
+            };
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel10.setText("Kosár:");
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jButton1.setText("FIZETÉS");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblKosar.setEnabled(false);
+        tblKosar.setRowHeight(18);
+        tblKosar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblKosar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane4.setViewportView(tblKosar);
+        if (tblKosar.getColumnModel().getColumnCount() > 0) {
+            tblKosar.getColumnModel().getColumn(0).setMinWidth(200);
+        }
+
+        lblKosar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblKosar.setText("Kosár:");
+
+        btnFizetes.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnFizetes.setText("FIZETÉS");
+        btnFizetes.setEnabled(false);
+        btnFizetes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFizetesActionPerformed(evt);
+            }
+        });
+
+        btnVevoKivalasztasa.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnVevoKivalasztasa.setText("VEVŐ KIVÁLASZTÁSA");
+        btnVevoKivalasztasa.setEnabled(false);
+        btnVevoKivalasztasa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVevoKivalasztasaActionPerformed(evt);
+            }
+        });
+
+        btnKosarba.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnKosarba.setText("KOSÁRBA");
+        btnKosarba.setEnabled(false);
+        btnKosarba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKosarbaActionPerformed(evt);
+            }
+        });
+
+        jspinDarab.setModel(new javax.swing.SpinnerNumberModel(0, 0, 0, 1));
+        jspinDarab.setEnabled(false);
+
+        txtFizetendo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtFizetendo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtFizetendo.setEnabled(false);
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel23.setText("Fizetendő:");
+
+        btnTorol.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnTorol.setText("TÖRÖL");
+        btnTorol.setEnabled(false);
+        btnTorol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTorolActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelELADASLayout = new javax.swing.GroupLayout(panelELADAS);
         panelELADAS.setLayout(panelELADASLayout);
@@ -190,19 +279,33 @@ public class GardenGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblFocim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelELADASLayout.createSequentialGroup()
-                        .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                        .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelELADASLayout.createSequentialGroup()
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(364, 364, 364))
+                    .addGroup(panelELADASLayout.createSequentialGroup()
+                        .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelELADASLayout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(panelELADASLayout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnVevoKivalasztasa, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelELADASLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jspinDarab, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnKosarba, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(btnFizetes, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelELADASLayout.createSequentialGroup()
+                                .addComponent(btnTorol)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFizetendo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblKosar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         panelELADASLayout.setVerticalGroup(
@@ -212,20 +315,33 @@ public class GardenGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblKosar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelELADASLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelELADASLayout.createSequentialGroup()
+                                .addComponent(btnVevoKivalasztasa)
+                                .addGap(15, 15, 15))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelELADASLayout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtFizetendo)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTorol))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)))
-                .addGap(44, 44, 44))
+                        .addComponent(btnFizetes)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelELADASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnKosarba)
+                    .addComponent(jspinDarab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55))
         );
 
         jTabbedPane1.addTab("Eladás", panelELADAS);
@@ -283,6 +399,10 @@ public class GardenGUI extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tblVasarlok);
+        if (tblVasarlok.getColumnModel().getColumnCount() > 0) {
+            tblVasarlok.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblVasarlok.getColumnModel().getColumn(1).setPreferredWidth(220);
+        }
 
         txtVEVOID.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         txtVEVOID.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -460,7 +580,7 @@ public class GardenGUI extends javax.swing.JFrame {
                 .addGroup(panelVASARLOKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnMINTAADATOK)
                     .addComponent(btnUJVASARLO))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Vásárlók", panelVASARLOK);
@@ -495,6 +615,9 @@ public class GardenGUI extends javax.swing.JFrame {
         tblKESZLET.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblKESZLET.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane5.setViewportView(tblKESZLET);
+        if (tblKESZLET.getColumnModel().getColumnCount() > 0) {
+            tblKESZLET.getColumnModel().getColumn(0).setPreferredWidth(250);
+        }
 
         txtTeljesErtek.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtTeljesErtek.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -647,7 +770,7 @@ public class GardenGUI extends javax.swing.JFrame {
                 .addGroup(panelSEGITSEGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Technikai segítség", panelSEGITSEG);
@@ -673,8 +796,8 @@ public class GardenGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblKERTESZET, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -686,8 +809,11 @@ public class GardenGUI extends javax.swing.JFrame {
             if (f.exists() && !f.isDirectory()) {
                 Scanner olvaso = new Scanner(f);
                 String kerteszetneve = olvaso.nextLine();
-                this.setTitle(kerteszetneve + " Kertészet");
-                this.lblKERTESZET.setText(kerteszetneve + " Kertészet");
+                
+                kerteszet = new Kerteszet(1, kerteszetneve);
+                this.setTitle(kerteszet.getMegnevezes() + " Kertészet");
+                this.lblKERTESZET.setText(kerteszet.getMegnevezes() + " Kertészet");
+                
                 olvaso.close();
             } else {
                 this.lblFocim.setText("Nem találtam a kertészet nevét!");
@@ -866,6 +992,103 @@ public class GardenGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void tblVasarlok_eaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVasarlok_eaMouseClicked
+        this.btnVevoKivalasztasa.setEnabled(true);
+    }//GEN-LAST:event_tblVasarlok_eaMouseClicked
+
+    private void btnVevoKivalasztasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVevoKivalasztasaActionPerformed
+        int sorindex = this.tblVasarlok_ea.getSelectedRow();
+        
+        this.lblKosar.setText(vevok.get(sorindex).getNev() + " kosara:");
+        this.tblVasarlok_ea.setEnabled(false);
+        this.tblKeszlet_ea.setEnabled(true);
+    }//GEN-LAST:event_btnVevoKivalasztasaActionPerformed
+
+    private void btnKosarbaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKosarbaActionPerformed
+        int valasz = JOptionPane.YES_OPTION;
+        int sorindex = this.tblKeszlet_ea.getSelectedRow();
+
+        valasz = JOptionPane.showConfirmDialog(null, "Valóban beteszi a kiválasztott darabszámú terméket a kosárba?", "MEGERŐSÍTÉS", JOptionPane.YES_NO_OPTION);
+        if (valasz == JOptionPane.YES_OPTION) {
+            //*** a kosár tétel kitöltése ***
+            int id = novenyek.get(sorindex).getId();
+            String megnevezes = novenyek.get(sorindex).getMegnevezes();
+            int darab = Integer.parseInt(jspinDarab.getValue().toString());
+            int egysegar = novenyek.get(sorindex).getEgysegar();
+            int ertek = darab * egysegar;
+            kosar.add(new Kosar(id, megnevezes, darab, egysegar, ertek));
+            KosarKiir();
+            
+            //*** A készlet csökkentése (id)***
+            KeszletModositas(id, (-1) * darab);
+            KeszletKiir();
+            this.jspinDarab.setEnabled(false);
+            this.btnKosarba.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnKosarbaActionPerformed
+
+    private void tblKeszlet_eaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKeszlet_eaMouseClicked
+        int sorindex = this.tblKeszlet_ea.getSelectedRow();
+        if (sorindex >= 0) {
+            int elerhetodarab = novenyek.get(sorindex).getKeszlet();
+            if (novenyek.get(sorindex).getKeszlet() > 0) {
+                this.btnKosarba.setEnabled(true);
+                this.jspinDarab.setEnabled(true);
+
+                SpinnerModel model = new SpinnerNumberModel(1, 1, elerhetodarab, 1);
+                jspinDarab.setModel(model);
+
+            } else {
+                this.btnKosarba.setEnabled(false);
+                this.jspinDarab.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_tblKeszlet_eaMouseClicked
+
+    private void btnFizetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFizetesActionPerformed
+        int valasz = JOptionPane.YES_OPTION;
+        JOptionPane.showConfirmDialog(null, "Ténylegesen fizethetőek a tételek?", "MEGERŐSÍTÉS", JOptionPane.YES_NO_OPTION);
+        if (valasz == JOptionPane.YES_OPTION) {
+            //*** Le kell a vásárló egyenlegét csökkenteni ***
+            int sorindex = this.tblVasarlok_ea.getSelectedRow();
+            int egyenleg = vevok.get(sorindex).getEgyenleg();
+            vevok.get(sorindex).setEgyenleg(egyenleg - kosarErtek);
+            VevoAdatKiir();
+            
+            //*** Törölni kell a kosár tartalmát ***
+            int sorok = kosar.size();
+            for (int i = 0; i < sorok; i++) {
+                kosar.remove(i);
+            }
+            KosarKiir();
+            
+            //*** A vezérlők engedélyeit vissza kell állítani ***
+            this.tblKosar.setEnabled(false);
+            this.btnFizetes.setEnabled(false);
+            this.tblKeszlet_ea.setEnabled(false);
+            this.jspinDarab.setEnabled(false);
+            this.btnKosarba.setEnabled(false);
+            this.tblVasarlok_ea.setEnabled(true);
+            
+        }
+    }//GEN-LAST:event_btnFizetesActionPerformed
+
+    private void btnTorolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTorolActionPerformed
+        int sorindex = this.tblKosar.getSelectedRow();
+
+        if (sorindex >= 0) {
+            int id = kosar.get(sorindex).id;
+            int db = kosar.get(sorindex).darabszam;
+            //*** A készlet visszaállítása ***
+            KeszletModositas(id, db);
+            KeszletKiir();
+
+            //*** Törlés a kosárból ***
+            kosar.remove(sorindex);
+            KosarKiir();
+        }
+    }//GEN-LAST:event_btnTorolActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -902,17 +1125,19 @@ public class GardenGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFizetes;
     private javax.swing.JButton btnKESZLETMINTA;
     private javax.swing.JButton btnKeszletMentes;
+    private javax.swing.JButton btnKosarba;
     private javax.swing.JButton btnMINTAADATOK;
+    private javax.swing.JButton btnTorol;
     private javax.swing.JButton btnUJVASARLO;
     private javax.swing.JButton btnVEVOMEGSEM;
     private javax.swing.JButton btnVEVOMENTES;
+    private javax.swing.JButton btnVevoKivalasztasa;
     private javax.swing.JComboBox<String> cmbKEDVEZMENY;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -926,6 +1151,7 @@ public class GardenGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -939,17 +1165,20 @@ public class GardenGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JSpinner jspinDarab;
     private javax.swing.JLabel lblFocim;
     private javax.swing.JLabel lblKERTESZET;
+    private javax.swing.JLabel lblKosar;
     private javax.swing.JPanel panelELADAS;
     private javax.swing.JPanel panelKESZLET;
     private javax.swing.JPanel panelSEGITSEG;
     private javax.swing.JPanel panelVASARLOK;
     private javax.swing.JTable tblKESZLET;
     private javax.swing.JTable tblKeszlet_ea;
+    private javax.swing.JTable tblKosar;
     private javax.swing.JTable tblVasarlok;
     private javax.swing.JTable tblVasarlok_ea;
+    private javax.swing.JTextField txtFizetendo;
     private javax.swing.JTextField txtFizetes;
     private javax.swing.JTextField txtTeljesErtek;
     private javax.swing.JTextField txtVEVOEGYENLEG;
@@ -969,11 +1198,11 @@ public class GardenGUI extends javax.swing.JFrame {
         for(int i = dt2.getRowCount()-1;i>=0; i--) {
             dt2.removeRow(i);
         }   
-        tblVasarlok.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        /*tblVasarlok.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblVasarlok.getColumnModel().getColumn(0).setPreferredWidth(80);
         tblVasarlok.getColumnModel().getColumn(1).setPreferredWidth(220);
         tblVasarlok.getColumnModel().getColumn(2).setPreferredWidth(80);
-        tblVasarlok.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tblVasarlok.getColumnModel().getColumn(3).setPreferredWidth(80);*/
         
         for (int i = 0; i < vevok.size(); i++) {
             Object[] sor = new Object[4];
@@ -1013,16 +1242,11 @@ public class GardenGUI extends javax.swing.JFrame {
         for(int i = dt2.getRowCount()-1;i>=0; i--) {
             dt2.removeRow(i);
         }
-        tblKESZLET.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        /*tblKESZLET.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblKESZLET.getColumnModel().getColumn(0).setPreferredWidth(252);
         tblKESZLET.getColumnModel().getColumn(1).setPreferredWidth(100);
         tblKESZLET.getColumnModel().getColumn(2).setPreferredWidth(100);
-        tblKESZLET.getColumnModel().getColumn(3).setPreferredWidth(100);
-        /*tblVasarlok.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tblVasarlok.getColumnModel().getColumn(0).setPreferredWidth(80);
-        tblVasarlok.getColumnModel().getColumn(1).setPreferredWidth(220);
-        tblVasarlok.getColumnModel().getColumn(2).setPreferredWidth(80);
-        tblVasarlok.getColumnModel().getColumn(3).setPreferredWidth(80);*/
+        tblKESZLET.getColumnModel().getColumn(3).setPreferredWidth(100);*/
         int teljesErtek = 0;
         
         for (int i = 0; i < novenyek.size(); i++) {
@@ -1069,6 +1293,65 @@ public class GardenGUI extends javax.swing.JFrame {
             s.close();
         } catch (IOException e) {
             System.err.println("Nem sikerült a készletfile-t olvasni!");
+        }
+    }
+    
+    public void KosarKiir() {
+        DefaultTableModel kt = (DefaultTableModel) tblKosar.getModel();
+        kosarErtek = 0;
+        
+        //*** A kosár tábla adatainak törlése ***
+        for (int i = kt.getRowCount()-1;i>=0; i--) {
+            kt.removeRow(i);
+        }
+        
+        if (kosar.size() > 0) {
+            for (int i=0; i<kosar.size();i++) {
+                Object[] sor = new Object[4];
+                sor[0] = kosar.get(i).getTetelmegnevezes();
+                sor[1] = darab.format(kosar.get(i).getDarabszam());
+                sor[2] = forint.format(kosar.get(i).getEgysegar());
+                sor[3] = forint.format(kosar.get(i).getErtek());
+                kt.addRow(sor);
+
+                kosarErtek += kosar.get(i).getErtek();
+            }
+        }
+        this.txtFizetendo.setText(forint.format(kosarErtek));
+        if (kosarErtek > 0) {
+            this.tblKosar.setEnabled(true);
+            this.btnTorol.setEnabled(true);
+        
+            //*** Hitelkeret vizsgálat ***
+            int vevosor = this.tblVasarlok_ea.getSelectedRow();
+            int hitelkeret = vevok.get(vevosor).getEgyenleg();
+
+            if (kosarErtek > hitelkeret) {
+                JOptionPane.showMessageDialog(null, 
+                        "A kosár értéke meghaladja a vásárló fizetőképességét!\n" + 
+                        "Töröljön a kosárból!", "Kerettúllépés!", JOptionPane.YES_OPTION);
+                this.btnFizetes.setEnabled(false);
+            } else {
+                this.btnFizetes.setEnabled(true);
+            }
+        } else {
+            this.tblKosar.setEnabled(false);
+            this.btnTorol.setEnabled(false);
+            this.btnFizetes.setEnabled(false);
+            this.jspinDarab.setEnabled(false);
+            this.tblKeszlet_ea.setEnabled(false);
+            this.btnKosarba.setEnabled(false);
+            this.btnVevoKivalasztasa.setEnabled(false);
+            this.tblVasarlok_ea.setEnabled(true);
+        }
+    }
+    
+    public void KeszletModositas (int id, int darab) {
+        for (int i = 0; i < novenyek.size(); i++) {
+            if (novenyek.get(i).getId() == id) {
+                int db = novenyek.get(i).getKeszlet();
+                novenyek.get(i).setKeszlet(db + darab);
+            }
         }
     }
             
